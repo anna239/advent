@@ -22,19 +22,19 @@ fun main() {
         "nine"
     ).mapIndexed { index, s -> s to index + 1 }.toMap()
 
-    fun buildTree(nameToNumber: Map<String, Int>): Node {
-        val result = Node(0)
+    fun buildTree(nameToNumber: Map<String, Int>): OldNode {
+        val result = OldNode(0)
         nameToNumber.forEach { (key, value) ->
             var current = result
             key.asIterable().iterator().forEach {
-                current = current.children.getOrPut(it) { Node(current.depth + 1) }
+                current = current.children.getOrPut(it) { OldNode(current.depth + 1) }
             }
             current.number = value
         }
         return result
     }
 
-    fun extractNumber(s: String, tree: Node): Int {
+    fun extractNumber(s: String, tree: OldNode): Int {
         var current = tree
         var id = 0
         while (true) {
@@ -74,4 +74,5 @@ fun main() {
     part2(input).println()
 }
 
-class Node(val depth: Int, var number: Int? = null, val children: MutableMap<Char, Node> = hashMapOf())
+private class OldNode(val depth: Int, var number: Int? = null, val children: MutableMap<Char, OldNode> = hashMapOf())
+

@@ -35,7 +35,7 @@ class Card(val winning: List<Int>, val present: List<Int>) {
     val matchingNumbers by lazy(LazyThreadSafetyMode.NONE) { present.intersect(winning.toSet()).size }
 }
 
-fun parse(lines: List<String>): Array<Card> {
+private fun parse(lines: List<String>): Array<Card> {
     return lines.map { line ->
         val (winning, present) = line.split(":")[1].split("|")
         Card(toInts(winning), toInts(present))
